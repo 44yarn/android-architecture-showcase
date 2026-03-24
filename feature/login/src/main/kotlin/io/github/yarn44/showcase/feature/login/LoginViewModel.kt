@@ -154,14 +154,12 @@ class LoginViewModel @Inject constructor(
             ),
         ) {
             onPositiveButtonClick = {
-                viewModelScope.launch {
-                    _effect.send(
-                        LoginEffect.NavigateToHome(
-                            displayName = "Guest",
-                            isGuest = true,
-                        ),
-                    )
-                }
+                _effect.send(
+                    LoginEffect.NavigateToHome(
+                        displayName = "Guest",
+                        isGuest = true,
+                    ),
+                )
             }
         }
     }
