@@ -3,6 +3,7 @@ package io.github.yarn44.showcase.feature.login
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.github.yarn44.showcase.core.data.auth.AuthException
 import io.github.yarn44.showcase.core.data.auth.AuthRepository
 import io.github.yarn44.showcase.core.data.preferences.PreferenceKey
 import io.github.yarn44.showcase.core.data.preferences.PreferenceStorage
@@ -143,12 +144,14 @@ class LoginViewModel @Inject constructor(
      * Guest Login navigates to Home as a guest user.
      */
     private suspend fun showLoginErrorDialog(exception: Throwable) {
+        val message = when (exception) {
+            is AuthException -> "Invalid email or password. Please try again."
+            else -> "An unexpected error occurred. Please try again later."
+        }
         dialogPresenter.requestDialogResult(
             uiState = DialogUiState(
                 title = AdaptiveString("Login Failed"),
-                message = AdaptiveString(
-                    exception.message ?: "An unexpected error occurred",
-                ),
+                message = AdaptiveString(message),
                 positiveButton = AdaptiveString("Guest Login"),
                 negativeButton = AdaptiveString("Cancel"),
             ),
