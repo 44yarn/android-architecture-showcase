@@ -3,6 +3,7 @@ package io.github.yarn44.showcase.feature.home
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.toRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.yarn44.showcase.core.data.preferences.PreferenceKey
 import io.github.yarn44.showcase.core.data.preferences.PreferenceStorage
@@ -28,18 +29,18 @@ class HomeViewModel @Inject constructor(
     val effect = _effect.receiveAsFlow()
 
     val actions = HomeActions(
+        onBackPressed = ::onBackPressed,
         onSaveEmailToggle = ::onSaveEmailToggle,
         onLogoutClick = ::onLogoutClick,
     )
 
     init {
-        val displayName = savedStateHandle.get<String>("displayName") ?: ""
-        val isGuest = savedStateHandle.get<Boolean>("isGuest") ?: false
-        _uiState.displayName = displayName
-        _uiState.isGuest = isGuest
+        val route = savedStateHandle.toRoute<HomeRoute>()
+        _uiState.displayName = route.displayName
+        _uiState.isGuest = route.isGuest
 
         loadPreferences()
-        showWelcomeSnackbar(displayName, isGuest)
+        showWelcomeSnackbar(route.displayName, route.isGuest)
     }
 
     private fun loadPreferences() {
@@ -59,6 +60,12 @@ class HomeViewModel @Inject constructor(
         val message = if (isGuest) "Guest mode" else "Welcome, $displayName!"
         snackbarPresenter.show(
             SnackbarUiState(description = AdaptiveString(message)),
+        )
+    }
+
+    private fun onBackPressed() {
+        snackbarPresenter.show(
+            SnackbarUiState(description = AdaptiveString("Use the Logout button to sign out")),
         )
     }
 

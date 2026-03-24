@@ -5,18 +5,10 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import io.github.yarn44.showcase.core.foundation.navigation.screen
+import io.github.yarn44.showcase.feature.home.HomeRoute
 import io.github.yarn44.showcase.feature.home.HomeScreen
+import io.github.yarn44.showcase.feature.login.LoginRoute
 import io.github.yarn44.showcase.feature.login.LoginScreen
-import kotlinx.serialization.Serializable
-
-@Serializable
-object LoginRoute
-
-@Serializable
-data class HomeRoute(
-    val displayName: String,
-    val isGuest: Boolean,
-)
 
 @Composable
 fun ShowcaseNavGraph(
