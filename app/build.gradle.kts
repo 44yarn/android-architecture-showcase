@@ -1,6 +1,7 @@
 plugins {
     id("showcase.AppPlugin")
     id("showcase.ComposePlugin")
+    id("showcase.NavigationPlugin")
     id("showcase.HiltPlugin")
     id("showcase.LoggingPlugin")
     id("showcase.UnitTestPlugin")
@@ -18,5 +19,7 @@ dependencies {
     implementation(project(":core:foundation"))
     implementation(project(":core:ui-kit"))
     implementation(project(":core:data"))
+    implementation(project(":feature:home"))
+    implementation(project(":feature:info"))
     implementation(project(":feature:login"))
 }

@@ -30,5 +30,7 @@ include(
     ":core:foundation",
     ":core:ui-kit",
     ":core:data",
+    ":feature:home",
+    ":feature:info",
     ":feature:login",
 )

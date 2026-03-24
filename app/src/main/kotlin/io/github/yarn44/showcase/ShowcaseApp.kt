@@ -6,13 +6,18 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import io.github.yarn44.showcase.feature.login.LoginScreen
+import androidx.navigation.compose.rememberNavController
+import io.github.yarn44.showcase.navigation.ShowcaseNavGraph
 
 @Composable
 fun ShowcaseApp() {
+    val navController = rememberNavController()
     MaterialTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-            LoginScreen(modifier = Modifier.padding(innerPadding))
+            ShowcaseNavGraph(
+                navController = navController,
+                modifier = Modifier.padding(innerPadding),
+            )
         }
     }
 }
