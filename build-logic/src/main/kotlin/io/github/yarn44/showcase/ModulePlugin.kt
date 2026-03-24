@@ -33,6 +33,8 @@ class ModulePlugin : Plugin<Project> {
             compilerOptions.jvmTarget.set(AndroidConfig.jvmTarget)
         }
 
+        pluginManager.apply(KtlintPlugin::class.java)
+
         dependencies {
             add("implementation", libs.library("androidxCoreKtx"))
             add("implementation", libs.library("kotlinxCoroutinesCore"))

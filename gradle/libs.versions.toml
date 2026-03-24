@@ -14,6 +14,7 @@ composeCompiler = "2.3.10"
 hilt = "2.57.2"
 junit = "4.13.2"
 kotlin = "2.3.10"
+ktlintCli = "1.7.1"
 kotlinxCoroutines = "1.10.2"
 ksp = "2.3.6"
 lifecycleRuntimeCompose = "2.6.2"
@@ -67,6 +68,9 @@ timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "tim
 # Coroutines
 kotlinxCoroutinesCore = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
 kotlinxCoroutinesTest = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
+
+# Ktlint
+ktlintCli = { group = "com.pinterest.ktlint", name = "ktlint-cli", version.ref = "ktlintCli" }
 
 # Testing
 junit = { group = "junit", name = "junit", version.ref = "junit" }

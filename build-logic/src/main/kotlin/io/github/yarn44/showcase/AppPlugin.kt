@@ -43,6 +43,8 @@ class AppPlugin : Plugin<Project> {
             compilerOptions.jvmTarget.set(AndroidConfig.jvmTarget)
         }
 
+        pluginManager.apply(KtlintPlugin::class.java)
+
         dependencies {
             add("implementation", libs.library("activityCompose"))
             add("implementation", libs.library("androidxCoreKtx"))

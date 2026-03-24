@@ -25,6 +25,7 @@ gradlePlugin {
             "ComposePlugin",
             "DataStorePlugin",
             "HiltPlugin",
+            "KtlintPlugin",
             "LoggingPlugin",
             "ModulePlugin",
             "UnitTestPlugin",
