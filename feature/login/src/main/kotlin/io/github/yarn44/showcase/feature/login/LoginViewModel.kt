@@ -13,11 +13,11 @@ import io.github.yarn44.showcase.core.uikit.indicator.IndicatorState
 import io.github.yarn44.showcase.core.uikit.model.AdaptiveString
 import io.github.yarn44.showcase.core.uikit.snackbar.SnackbarPresenter
 import io.github.yarn44.showcase.core.uikit.snackbar.SnackbarUiState
+import javax.inject.Inject
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(

@@ -2,8 +2,8 @@ package io.github.yarn44.showcase.core.data.auth
 
 import io.github.yarn44.showcase.core.foundation.resulthandling.runCatchingCancellable
 import io.github.yarn44.showcase.core.foundation.resulthandling.withErrorLog
-import kotlinx.coroutines.delay
 import javax.inject.Inject
+import kotlinx.coroutines.delay
 
 /**
  * Fake implementation with simulated network delays.
