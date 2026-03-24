@@ -77,7 +77,7 @@ class LoginViewModel @Inject constructor(
     private fun onLoginClick() {
         currentJob = viewModelScope.launch {
             indicatorState.runWithLoading {
-                authRepository.login(_uiState.email, _uiState.password)
+                authRepository.login(email = _uiState.email, password = _uiState.password)
             }.onSuccess { result ->
                 saveEmailIfEnabled()
                 _effect.send(
@@ -98,7 +98,10 @@ class LoginViewModel @Inject constructor(
     private fun onLoginFailClick() {
         currentJob = viewModelScope.launch {
             indicatorState.runWithLoading {
-                authRepository.login(_uiState.email, AuthRepository.ERROR_PASSWORD)
+                authRepository.login(
+                    email = _uiState.email,
+                    password = AuthRepository.ERROR_PASSWORD,
+                )
             }.onFailureIgnoring { exception ->
                 showLoginErrorDialog(exception)
             }
