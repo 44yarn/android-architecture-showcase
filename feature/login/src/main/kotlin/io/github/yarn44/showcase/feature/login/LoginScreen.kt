@@ -33,6 +33,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import io.github.yarn44.showcase.core.uikit.dialog.ShowcaseAlertDialog
+import io.github.yarn44.showcase.core.uikit.indicator.IndicatorState
 
 @Composable
 fun LoginScreen(
@@ -56,12 +57,18 @@ fun LoginScreen(
         }
     }
 
-    Box(modifier = modifier.fillMaxSize()) {
+    Box(
+        modifier = modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center,
+    ) {
         LoginContent(
             uiState = viewModel.uiState,
-            isLoading = { viewModel.indicatorState.isLoading },
             actions = viewModel.actions,
         )
+
+        if (viewModel.indicatorState.isLoading) {
+            CircularProgressIndicator()
+        }
     }
 
     // Presenter pattern: Dialog rendering
@@ -71,7 +78,6 @@ fun LoginScreen(
 @Composable
 private fun LoginContent(
     uiState: LoginUiState,
-    isLoading: () -> Boolean,
     actions: LoginActions,
     modifier: Modifier = Modifier,
 ) {
@@ -140,7 +146,7 @@ private fun LoginContent(
 
             Button(
                 onClick = actions.onLoginClick,
-                enabled = uiState.isLoginEnabled && isLoading().not(),
+                enabled = uiState.isLoginEnabled,
                 modifier = Modifier.fillMaxWidth(),
             ) {
                 Text("Login")
@@ -152,7 +158,7 @@ private fun LoginContent(
             ) {
                 OutlinedButton(
                     onClick = actions.onLoginFailClick,
-                    enabled = isLoading().not(),
+                    enabled = uiState.isButtonsEnabled,
                     modifier = Modifier.weight(1f),
                 ) {
                     Text("Login (Fail)")
@@ -160,7 +166,7 @@ private fun LoginContent(
 
                 OutlinedButton(
                     onClick = actions.onCancelClick,
-                    enabled = isLoading(),
+                    enabled = uiState.isButtonsEnabled.not(),
                     modifier = Modifier.weight(1f),
                 ) {
                     Text("Cancel")
@@ -173,10 +179,6 @@ private fun LoginContent(
                 Text("Information")
             }
         }
-
-        if (isLoading()) {
-            CircularProgressIndicator()
-        }
     }
 }
 
@@ -185,8 +187,9 @@ private fun LoginContent(
 private fun LoginContentPreview() {
     MaterialTheme {
         LoginContent(
-            uiState = MutableLoginUiState(),
-            isLoading = { false },
+            uiState = MutableLoginUiState(
+                indicatorState = IndicatorState(),
+            ),
             actions = LoginActions(),
         )
     }

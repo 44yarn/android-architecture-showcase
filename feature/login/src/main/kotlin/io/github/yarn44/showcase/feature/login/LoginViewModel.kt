@@ -29,7 +29,7 @@ class LoginViewModel @Inject constructor(
     val indicatorState: IndicatorState,
 ) : ViewModel() {
 
-    private val _uiState = MutableLoginUiState()
+    private val _uiState = MutableLoginUiState(indicatorState)
     val uiState: LoginUiState = _uiState
 
     private val _effect = Channel<LoginEffect>(Channel.BUFFERED)
