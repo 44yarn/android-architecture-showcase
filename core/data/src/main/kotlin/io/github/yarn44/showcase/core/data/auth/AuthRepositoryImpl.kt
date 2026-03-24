@@ -1,7 +1,7 @@
 package io.github.yarn44.showcase.core.data.auth
 
-import io.github.yarn44.showcase.core.foundation.resulthandling.runCatchingCancellable
 import io.github.yarn44.showcase.core.foundation.resulthandling.logOnFailure
+import io.github.yarn44.showcase.core.foundation.resulthandling.runCatchingCancellable
 import javax.inject.Inject
 import kotlinx.coroutines.delay
 

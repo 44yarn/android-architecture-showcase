@@ -1,10 +1,8 @@
 package io.github.yarn44.showcase.feature.login
 
-import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,8 +13,8 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -27,21 +25,24 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import io.github.yarn44.showcase.core.uikit.dialog.ShowcaseAlertDialog
-import io.github.yarn44.showcase.core.uikit.snackbar.SnackbarView
 
 @Composable
 fun LoginScreen(
+    onNavigateToHome: (displayName: String, isGuest: Boolean) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: LoginViewModel = hiltViewModel(),
 ) {
     val context = LocalContext.current
 
-    // Effect pattern: collect one-shot events (Toast)
+    // Effect pattern: collect one-shot events (navigation, activity launch)
     LaunchedEffect(Unit) {
         viewModel.effect.collect { effect ->
             when (effect) {
-                is LoginEffect.ShowToast -> {
-                    Toast.makeText(context, effect.message, Toast.LENGTH_SHORT).show()
+                is LoginEffect.NavigateToHome -> {
+                    onNavigateToHome(effect.displayName, effect.isGuest)
+                }
+                is LoginEffect.LaunchActivity -> {
+                    viewModel.activityLauncher.launch(context, effect.target)
                 }
             }
         }
@@ -53,8 +54,6 @@ fun LoginScreen(
             isLoading = { viewModel.indicatorState.isLoading },
             actions = viewModel.actions,
         )
-
-        SnackbarView(presenter = viewModel.snackbarPresenter)
     }
 
     // Presenter pattern: Dialog rendering
@@ -103,14 +102,6 @@ private fun LoginContent(
                 modifier = Modifier.fillMaxWidth(),
             )
 
-            if (uiState.lastLoginName.isNotEmpty()) {
-                Text(
-                    text = "Last login: ${uiState.lastLoginName}",
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = MaterialTheme.colorScheme.primary,
-                )
-            }
-
             Button(
                 onClick = actions.onLoginClick,
                 enabled = uiState.isLoginEnabled,
@@ -127,16 +118,10 @@ private fun LoginContent(
                 Text("Cancel")
             }
 
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween,
+            TextButton(
+                onClick = actions.onInformationClick,
             ) {
-                Text("Remember Email")
-                Switch(
-                    checked = uiState.isSaveEmailEnabled,
-                    onCheckedChange = actions.onSaveEmailToggle,
-                )
+                Text("Information")
             }
         }
 

@@ -12,8 +12,6 @@ import androidx.compose.runtime.setValue
 interface LoginUiState {
     val email: String
     val password: String
-    val isSaveEmailEnabled: Boolean
-    val lastLoginName: String
     val isLoginEnabled: Boolean
 }
 
@@ -22,10 +20,8 @@ interface LoginUiState {
  * Each property is backed by [mutableStateOf] for Compose snapshot integration.
  */
 class MutableLoginUiState : LoginUiState {
-    override var email: String by mutableStateOf("")
-    override var password: String by mutableStateOf("")
-    override var isSaveEmailEnabled: Boolean by mutableStateOf(false)
-    override var lastLoginName: String by mutableStateOf("")
+    override var email: String by mutableStateOf("demo@example.com")
+    override var password: String by mutableStateOf("password")
     override val isLoginEnabled: Boolean
         get() = email.isNotBlank() && password.isNotBlank()
 }

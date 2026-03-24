@@ -8,5 +8,5 @@ data class LoginActions(
     val onPasswordChange: (password: String) -> Unit = {},
     val onLoginClick: () -> Unit = {},
     val onCancelClick: () -> Unit = {},
-    val onSaveEmailToggle: (enabled: Boolean) -> Unit = {},
+    val onInformationClick: () -> Unit = {},
 )
