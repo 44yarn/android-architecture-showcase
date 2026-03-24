@@ -12,6 +12,7 @@ import androidx.compose.runtime.setValue
 interface LoginUiState {
     val email: String
     val password: String
+    val isPasswordVisible: Boolean
     val isLoginEnabled: Boolean
 }
 
@@ -22,6 +23,7 @@ interface LoginUiState {
 class MutableLoginUiState : LoginUiState {
     override var email: String by mutableStateOf("demo@example.com")
     override var password: String by mutableStateOf("password")
+    override var isPasswordVisible: Boolean by mutableStateOf(false)
     override val isLoginEnabled: Boolean
         get() = email.isNotBlank() && password.isNotBlank()
 }

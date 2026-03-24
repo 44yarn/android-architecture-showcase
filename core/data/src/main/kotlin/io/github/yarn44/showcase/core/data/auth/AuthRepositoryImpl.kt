@@ -25,6 +25,6 @@ class AuthRepositoryImpl @Inject constructor() : AuthRepository {
     private companion object {
         const val SIMULATED_DELAY_MILLIS = 1500L
         /** Entering this password triggers an intentional error for demo purposes. */
-        const val ERROR_PASSWORD = "error"
+        const val ERROR_PASSWORD = "error_password"
     }
 }

@@ -3,13 +3,20 @@ package io.github.yarn44.showcase.feature.login
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
@@ -21,6 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -90,6 +98,14 @@ private fun LoginContent(
                 onValueChange = actions.onEmailChange,
                 label = { Text("Email") },
                 singleLine = true,
+                trailingIcon = {
+                    IconButton(onClick = actions.onRandomEmailClick) {
+                        Icon(
+                            imageVector = Icons.Default.Refresh,
+                            contentDescription = "Random email",
+                        )
+                    }
+                },
                 modifier = Modifier.fillMaxWidth(),
             )
 
@@ -98,7 +114,27 @@ private fun LoginContent(
                 onValueChange = actions.onPasswordChange,
                 label = { Text("Password") },
                 singleLine = true,
-                visualTransformation = PasswordVisualTransformation(),
+                visualTransformation = if (uiState.isPasswordVisible) {
+                    VisualTransformation.None
+                } else {
+                    PasswordVisualTransformation()
+                },
+                trailingIcon = {
+                    IconButton(onClick = actions.onTogglePasswordVisibility) {
+                        Icon(
+                            imageVector = if (uiState.isPasswordVisible) {
+                                Icons.Default.VisibilityOff
+                            } else {
+                                Icons.Default.Visibility
+                            },
+                            contentDescription = if (uiState.isPasswordVisible) {
+                                "Hide password"
+                            } else {
+                                "Show password"
+                            },
+                        )
+                    }
+                },
                 modifier = Modifier.fillMaxWidth(),
             )
 
@@ -110,12 +146,24 @@ private fun LoginContent(
                 Text("Login")
             }
 
-            OutlinedButton(
-                onClick = actions.onCancelClick,
-                enabled = isLoading(),
+            Row(
                 modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
             ) {
-                Text("Cancel")
+                OutlinedButton(
+                    onClick = actions.onLoginFailClick,
+                    modifier = Modifier.weight(1f),
+                ) {
+                    Text("Login (Fail)")
+                }
+
+                OutlinedButton(
+                    onClick = actions.onCancelClick,
+                    enabled = isLoading(),
+                    modifier = Modifier.weight(1f),
+                ) {
+                    Text("Cancel")
+                }
             }
 
             TextButton(

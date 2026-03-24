@@ -37,7 +37,10 @@ class LoginViewModel @Inject constructor(
     val actions = LoginActions(
         onEmailChange = ::onEmailChange,
         onPasswordChange = ::onPasswordChange,
+        onRandomEmailClick = ::onRandomEmailClick,
+        onTogglePasswordVisibility = ::onTogglePasswordVisibility,
         onLoginClick = ::onLoginClick,
+        onLoginFailClick = ::onLoginFailClick,
         onCancelClick = ::onCancelClick,
         onInformationClick = ::onInformationClick,
     )
@@ -54,6 +57,14 @@ class LoginViewModel @Inject constructor(
 
     private fun onPasswordChange(password: String) {
         _uiState.password = password
+    }
+
+    private fun onRandomEmailClick() {
+        _uiState.email = SAMPLE_EMAILS.random()
+    }
+
+    private fun onTogglePasswordVisibility() {
+        _uiState.isPasswordVisible = _uiState.isPasswordVisible.not()
     }
 
     /**
@@ -74,6 +85,19 @@ class LoginViewModel @Inject constructor(
                         isGuest = false,
                     ),
                 )
+            }.onFailureIgnoring { exception ->
+                showLoginErrorDialog(exception)
+            }
+        }
+    }
+
+    /**
+     * Intentionally triggers a login failure for demo purposes.
+     */
+    private fun onLoginFailClick() {
+        currentJob = viewModelScope.launch {
+            indicatorState.runWithLoading {
+                authRepository.login(_uiState.email, ERROR_PASSWORD)
             }.onFailureIgnoring { exception ->
                 showLoginErrorDialog(exception)
             }
@@ -150,5 +174,16 @@ class LoginViewModel @Inject constructor(
         if (saveEnabled) {
             preferenceStorage.put(PreferenceKey.SavedEmail, _uiState.email)
         }
+    }
+
+    companion object {
+        private const val ERROR_PASSWORD = "error_password"
+        private val SAMPLE_EMAILS = listOf(
+            "demo@example.com",
+            "alice@showcase.dev",
+            "bob@showcase.dev",
+            "charlie@showcase.dev",
+            "test@example.com",
+        )
     }
 }
