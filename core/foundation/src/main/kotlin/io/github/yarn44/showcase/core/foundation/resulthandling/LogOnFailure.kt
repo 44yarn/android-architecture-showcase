@@ -10,7 +10,7 @@ import timber.log.Timber
  * This ensures consistent error logging across the app while avoiding
  * noise from expected exceptions.
  */
-fun <T> Result<T>.withErrorLog(
+fun <T> Result<T>.logOnFailure(
     ignored: List<KClass<out Throwable>> = ignoredExceptionClasses,
 ): Result<T> {
     onFailure { exception ->

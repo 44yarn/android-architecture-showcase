@@ -1,7 +1,7 @@
 package io.github.yarn44.showcase.core.data.auth
 
 import io.github.yarn44.showcase.core.foundation.resulthandling.runCatchingCancellable
-import io.github.yarn44.showcase.core.foundation.resulthandling.withErrorLog
+import io.github.yarn44.showcase.core.foundation.resulthandling.logOnFailure
 import javax.inject.Inject
 import kotlinx.coroutines.delay
 
@@ -20,7 +20,7 @@ class AuthRepositoryImpl @Inject constructor() : AuthRepository {
                 token = "fake-token-${System.currentTimeMillis()}",
                 displayName = email.substringBefore("@"),
             )
-        }.withErrorLog()
+        }.logOnFailure()
 
     private companion object {
         const val SIMULATED_DELAY_MILLIS = 1500L
