@@ -97,7 +97,7 @@ class LoginViewModel @Inject constructor(
     private fun onLoginFailClick() {
         currentJob = viewModelScope.launch {
             indicatorState.runWithLoading {
-                authRepository.login(_uiState.email, ERROR_PASSWORD)
+                authRepository.login(_uiState.email, AuthRepository.ERROR_PASSWORD)
             }.onFailureIgnoring { exception ->
                 showLoginErrorDialog(exception)
             }
@@ -176,9 +176,8 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    companion object {
-        private const val ERROR_PASSWORD = "error_password"
-        private val SAMPLE_EMAILS = listOf(
+    private companion object {
+        val SAMPLE_EMAILS = listOf(
             "demo@example.com",
             "alice@showcase.dev",
             "bob@showcase.dev",

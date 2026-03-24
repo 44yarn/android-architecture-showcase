@@ -13,7 +13,7 @@ class AuthRepositoryImpl @Inject constructor() : AuthRepository {
     override suspend fun login(email: String, password: String): Result<AuthResult> =
         runCatchingCancellable {
             delay(SIMULATED_DELAY_MILLIS)
-            if (password == ERROR_PASSWORD) {
+            if (password == AuthRepository.ERROR_PASSWORD) {
                 throw AuthException("Authentication failed: invalid credentials")
             }
             AuthResult(
@@ -24,7 +24,5 @@ class AuthRepositoryImpl @Inject constructor() : AuthRepository {
 
     private companion object {
         const val SIMULATED_DELAY_MILLIS = 1500L
-        /** Entering this password triggers an intentional error for demo purposes. */
-        const val ERROR_PASSWORD = "error_password"
     }
 }

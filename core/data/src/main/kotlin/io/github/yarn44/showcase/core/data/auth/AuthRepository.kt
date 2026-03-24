@@ -6,6 +6,11 @@ package io.github.yarn44.showcase.core.data.auth
 interface AuthRepository {
     /** Attempts to log in with the given credentials. */
     suspend fun login(email: String, password: String): Result<AuthResult>
+
+    companion object {
+        /** Entering this password triggers an intentional error for demo purposes. */
+        const val ERROR_PASSWORD = "error_password"
+    }
 }
 
 /**
