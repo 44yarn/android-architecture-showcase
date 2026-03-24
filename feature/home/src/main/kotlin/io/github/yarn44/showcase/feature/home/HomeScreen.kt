@@ -19,8 +19,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import io.github.yarn44.showcase.core.uikit.model.AdaptiveString
-import io.github.yarn44.showcase.core.uikit.snackbar.SnackbarUiState
 import io.github.yarn44.showcase.core.uikit.snackbar.SnackbarView
 
 @Composable
@@ -30,11 +28,7 @@ fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
     // Disable system back — guide the user to the Logout button instead.
-    BackHandler {
-        viewModel.snackbarPresenter.show(
-            SnackbarUiState(description = AdaptiveString("Use the Logout button to sign out")),
-        )
-    }
+    BackHandler(onBack = viewModel.actions.onBackPressed)
 
     LaunchedEffect(Unit) {
         viewModel.effect.collect { effect ->
