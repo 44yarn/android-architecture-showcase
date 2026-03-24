@@ -12,6 +12,7 @@ import androidx.compose.runtime.setValue
 interface HomeUiState {
     val displayName: String
     val isGuest: Boolean
+    val screenTitle: String
     val isSaveEmailEnabled: Boolean
     val savedEmail: String
 }
@@ -22,6 +23,8 @@ interface HomeUiState {
 class MutableHomeUiState : HomeUiState {
     override var displayName: String by mutableStateOf("")
     override var isGuest: Boolean by mutableStateOf(false)
+    override val screenTitle: String
+        get() = if (isGuest) "Guest Home" else "Home"
     override var isSaveEmailEnabled: Boolean by mutableStateOf(false)
     override var savedEmail: String by mutableStateOf("")
 }

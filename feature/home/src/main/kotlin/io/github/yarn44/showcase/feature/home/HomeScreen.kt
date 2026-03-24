@@ -66,7 +66,7 @@ private fun HomeContent(
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             Text(
-                text = if (uiState.isGuest) "Guest Home" else "Home",
+                text = uiState.screenTitle,
                 style = MaterialTheme.typography.headlineMedium,
             )
 
