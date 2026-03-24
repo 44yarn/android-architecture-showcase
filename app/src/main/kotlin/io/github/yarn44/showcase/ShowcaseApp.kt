@@ -1,4 +1,4 @@
-package io.github.yarn44.showcase.ui
+package io.github.yarn44.showcase
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
