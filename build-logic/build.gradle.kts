@@ -28,6 +28,7 @@ gradlePlugin {
             "KtlintPlugin",
             "LoggingPlugin",
             "ModulePlugin",
+            "NavigationPlugin",
             "UnitTestPlugin",
         ).forEach { className ->
             register(className) {

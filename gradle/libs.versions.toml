@@ -16,6 +16,7 @@ junit = "4.13.2"
 kotlin = "2.3.10"
 ktlintCli = "1.7.1"
 kotlinxCoroutines = "1.10.2"
+kotlinxSerializationJson = "1.8.1"
 ksp = "2.3.6"
 lifecycleRuntimeCompose = "2.6.2"
 material3 = "1.4.0"
@@ -69,6 +70,9 @@ timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "tim
 kotlinxCoroutinesCore = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
 kotlinxCoroutinesTest = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
 
+# Serialization
+kotlinxSerializationJson = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
+
 # Ktlint
 ktlintCli = { group = "com.pinterest.ktlint", name = "ktlint-cli", version.ref = "ktlintCli" }
 
@@ -83,4 +87,5 @@ androidApplicationPlugin = { id = "com.android.application", version.ref = "agp"
 hiltPlugin = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlinAndroidPlugin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlinComposePlugin = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlinSerializationPlugin = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 kspPlugin = { id = "com.google.devtools.ksp", version.ref = "ksp" }
