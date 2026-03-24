@@ -12,6 +12,7 @@ import io.github.yarn44.showcase.core.uikit.snackbar.SnackbarPresenter
 import io.github.yarn44.showcase.core.uikit.snackbar.SnackbarUiState
 import javax.inject.Inject
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
@@ -58,9 +59,13 @@ class HomeViewModel @Inject constructor(
 
     private fun showWelcomeSnackbar(displayName: String, isGuest: Boolean) {
         val message = if (isGuest) "Guest mode" else "Welcome, $displayName!"
-        snackbarPresenter.show(
-            SnackbarUiState(description = AdaptiveString(message)),
-        )
+        viewModelScope.launch {
+            // Wait for the screen transition animation to finish before showing.
+            delay(WELCOME_SNACKBAR_DELAY_MILLIS)
+            snackbarPresenter.show(
+                SnackbarUiState(description = AdaptiveString(message)),
+            )
+        }
     }
 
     private fun onBackPressed() {
@@ -83,6 +88,10 @@ class HomeViewModel @Inject constructor(
                 )
             }
         }
+    }
+
+    private companion object {
+        const val WELCOME_SNACKBAR_DELAY_MILLIS = 500L
     }
 
     private fun onLogoutClick() {
