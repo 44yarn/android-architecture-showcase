@@ -46,11 +46,11 @@ class HomeViewModel @Inject constructor(
     private fun loadPreferences() {
         viewModelScope.launch {
             _uiState.isSaveEmailEnabled = preferenceStorage.getOrDefault(
-                PreferenceKey.SaveEmailEnabled,
+                PreferenceKey.Login.SaveEmailEnabled,
                 default = false,
             )
             _uiState.savedEmail = preferenceStorage.getOrDefault(
-                PreferenceKey.SavedEmail,
+                PreferenceKey.Login.SavedEmail,
                 default = "",
             )
         }
@@ -72,13 +72,13 @@ class HomeViewModel @Inject constructor(
     private fun onSaveEmailToggle(enabled: Boolean) {
         _uiState.isSaveEmailEnabled = enabled
         viewModelScope.launch {
-            preferenceStorage.put(PreferenceKey.SaveEmailEnabled, enabled)
+            preferenceStorage.put(PreferenceKey.Login.SaveEmailEnabled, enabled)
             if (enabled.not()) {
-                preferenceStorage.remove(PreferenceKey.SavedEmail)
+                preferenceStorage.remove(PreferenceKey.Login.SavedEmail)
                 _uiState.savedEmail = ""
             } else {
                 _uiState.savedEmail = preferenceStorage.getOrDefault(
-                    PreferenceKey.SavedEmail,
+                    PreferenceKey.Login.SavedEmail,
                     default = "",
                 )
             }

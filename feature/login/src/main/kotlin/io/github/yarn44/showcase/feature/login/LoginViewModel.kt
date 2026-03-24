@@ -123,12 +123,12 @@ class LoginViewModel @Inject constructor(
     private fun loadSavedEmail() {
         viewModelScope.launch {
             val saveEnabled = preferenceStorage.getOrDefault(
-                PreferenceKey.SaveEmailEnabled,
+                PreferenceKey.Login.SaveEmailEnabled,
                 default = false,
             )
             if (saveEnabled) {
                 val savedEmail = preferenceStorage.getOrDefault(
-                    PreferenceKey.SavedEmail,
+                    PreferenceKey.Login.SavedEmail,
                     default = "",
                 )
                 if (savedEmail.isNotEmpty()) {
@@ -168,11 +168,11 @@ class LoginViewModel @Inject constructor(
 
     private suspend fun saveEmailIfEnabled() {
         val saveEnabled = preferenceStorage.getOrDefault(
-            PreferenceKey.SaveEmailEnabled,
+            PreferenceKey.Login.SaveEmailEnabled,
             default = false,
         )
         if (saveEnabled) {
-            preferenceStorage.put(PreferenceKey.SavedEmail, _uiState.email)
+            preferenceStorage.put(PreferenceKey.Login.SavedEmail, _uiState.email)
         }
     }
 

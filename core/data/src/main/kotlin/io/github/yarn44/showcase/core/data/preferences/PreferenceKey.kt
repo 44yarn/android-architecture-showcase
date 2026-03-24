@@ -44,6 +44,9 @@ sealed class PreferenceKey<T>(val key: String) {
         override fun dataStoreKey(): Preferences.Key<Set<String>> = stringSetPreferencesKey(key)
     }
 
-    data object SavedEmail : StringKey("saved_email")
-    data object SaveEmailEnabled : BooleanKey("save_email_enabled")
+    /** Group related keys under a namespace object. */
+    object Login {
+        data object SavedEmail : StringKey("saved_email")
+        data object SaveEmailEnabled : BooleanKey("save_email_enabled")
+    }
 }
