@@ -140,7 +140,7 @@ private fun LoginContent(
 
             Button(
                 onClick = actions.onLoginClick,
-                enabled = uiState.isLoginEnabled,
+                enabled = uiState.isLoginEnabled && isLoading().not(),
                 modifier = Modifier.fillMaxWidth(),
             ) {
                 Text("Login")
@@ -152,6 +152,7 @@ private fun LoginContent(
             ) {
                 OutlinedButton(
                     onClick = actions.onLoginFailClick,
+                    enabled = isLoading().not(),
                     modifier = Modifier.weight(1f),
                 ) {
                     Text("Login (Fail)")
