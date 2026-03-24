@@ -16,4 +16,7 @@ data class AuthResult(
     val displayName: String,
 )
 
+/**
+ * @param message Diagnostic message for logging, not for UI display.
+ */
 class AuthException(message: String) : RuntimeException(message)
