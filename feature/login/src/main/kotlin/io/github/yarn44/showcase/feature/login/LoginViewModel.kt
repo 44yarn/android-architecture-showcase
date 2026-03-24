@@ -63,7 +63,7 @@ class LoginViewModel @Inject constructor(
      */
     private fun onLoginClick() {
         currentJob = viewModelScope.launch {
-            indicatorState.withLoadingResult {
+            indicatorState.runWithLoading {
                 authRepository.login(_uiState.email, _uiState.password)
             }.onSuccess { result ->
                 _uiState.lastLoginName = result.displayName

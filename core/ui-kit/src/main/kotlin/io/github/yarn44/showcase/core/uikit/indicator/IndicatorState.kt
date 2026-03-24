@@ -9,7 +9,7 @@ import javax.inject.Inject
 /**
  * Centralized loading state management.
  *
- * Wraps async operations with [withLoadingResult] to automatically
+ * Wraps async operations with [runWithLoading] to automatically
  * manage isLoading state, ensuring it is always reset even on
  * cancellation (via finally block).
  */
@@ -33,7 +33,7 @@ class IndicatorState @Inject constructor() {
      * Note: Do NOT chain onSuccess/onFailure inside [block] — callbacks would
      * execute before loading stops. Chain them on the returned Result instead.
      */
-    suspend fun <T> withLoadingResult(block: suspend () -> Result<T>): Result<T> {
+    suspend fun <T> runWithLoading(block: suspend () -> Result<T>): Result<T> {
         isLoading = true
         return try {
             block().also { isLoading = false }
