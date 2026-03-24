@@ -18,6 +18,10 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -35,6 +39,10 @@ fun SnackbarView(
     modifier: Modifier = Modifier,
 ) {
     val state = presenter.uiState
+
+    // Cache the last non-null state so content remains visible during exit animation.
+    var lastSnackbar by remember { mutableStateOf<SnackbarUiState?>(null) }
+    if (state != null) lastSnackbar = state
 
     LaunchedEffect(state) {
         if (state != null) {
@@ -54,7 +62,7 @@ fun SnackbarView(
             enter = slideInVertically(initialOffsetY = { it }) + fadeIn(),
             exit = slideOutVertically(targetOffsetY = { it }) + fadeOut(),
         ) {
-            state?.let { snackbar ->
+            lastSnackbar?.let { snackbar ->
                 Surface(
                     modifier = Modifier
                         .fillMaxWidth()
