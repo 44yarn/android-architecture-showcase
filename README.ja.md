@@ -1,4 +1,4 @@
-# Android Showcase
+# Android Architecture Showcase
 
 [English](README.md)
 
