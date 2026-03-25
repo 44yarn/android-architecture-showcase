@@ -29,6 +29,7 @@ gradlePlugin {
             "LoggingPlugin",
             "ModulePlugin",
             "NavigationPlugin",
+            "SerializationPlugin",
             "UnitTestPlugin",
         ).forEach { className ->
             register(className) {

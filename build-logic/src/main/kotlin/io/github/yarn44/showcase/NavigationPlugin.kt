@@ -6,19 +6,17 @@ import org.gradle.kotlin.dsl.dependencies
 
 /**
  * Provides type-safe Navigation dependencies.
- * Applies kotlin-serialization plugin and adds
- * kotlinx-serialization-json and hilt-navigation-compose.
+ * Applies SerializationPlugin (for @Serializable routes) and adds hilt-navigation-compose.
  *
  * Note: navigationCompose is already provided by ComposePlugin.
  */
 class NavigationPlugin : Plugin<Project> {
     override fun apply(project: Project) = with(project) {
         with(pluginManager) {
-            apply("org.jetbrains.kotlin.plugin.serialization")
+            apply("showcase.SerializationPlugin")
         }
 
         dependencies {
-            add("implementation", libs.library("kotlinxSerializationJson"))
             add("implementation", libs.library("androidxHiltNavCompose"))
         }
     }
