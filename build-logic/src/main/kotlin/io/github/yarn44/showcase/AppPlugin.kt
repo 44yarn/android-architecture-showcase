@@ -43,6 +43,8 @@ class AppPlugin : Plugin<Project> {
             compilerOptions.jvmTarget.set(AndroidConfig.jvmTarget)
         }
 
+        // KtlintPlugin is applied here (not in build.gradle.kts) because code style
+        // enforcement is mandatory for all modules, unlike optional feature plugins.
         pluginManager.apply(KtlintPlugin::class.java)
 
         dependencies {
