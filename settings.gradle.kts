@@ -24,7 +24,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "android-showcase"
+rootProject.name = "android-architecture-showcase"
 include(
     ":app",
     ":core:foundation",
