@@ -159,6 +159,7 @@ private fun LoginContent(
 
             TextButton(
                 onClick = actions.onInformationClick,
+                enabled = uiState.isButtonsEnabled,
             ) {
                 Text("Information")
             }
