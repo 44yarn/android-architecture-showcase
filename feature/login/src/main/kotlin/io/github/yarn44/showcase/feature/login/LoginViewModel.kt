@@ -14,6 +14,7 @@ import io.github.yarn44.showcase.core.uikit.dialog.DialogPresenter
 import io.github.yarn44.showcase.core.uikit.dialog.DialogUiState
 import io.github.yarn44.showcase.core.uikit.indicator.IndicatorState
 import io.github.yarn44.showcase.core.uikit.model.AdaptiveString
+import io.github.yarn44.showcase.feature.login.R
 import javax.inject.Inject
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
@@ -153,10 +154,10 @@ class LoginViewModel @Inject constructor(
         }
         dialogPresenter.requestDialogResult(
             uiState = DialogUiState(
-                title = AdaptiveString("Login Failed"),
+                title = AdaptiveString(R.string.login_failed),
                 message = AdaptiveString(message),
-                positiveButton = AdaptiveString("Guest Login"),
-                negativeButton = AdaptiveString("Cancel"),
+                positiveButton = AdaptiveString(R.string.guest_login),
+                negativeButton = AdaptiveString(R.string.cancel),
             ),
         ) {
             onPositiveButtonClick = {

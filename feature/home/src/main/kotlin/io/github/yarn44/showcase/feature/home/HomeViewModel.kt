@@ -10,6 +10,7 @@ import io.github.yarn44.showcase.core.data.preferences.PreferenceStorage
 import io.github.yarn44.showcase.core.uikit.model.AdaptiveString
 import io.github.yarn44.showcase.core.uikit.snackbar.SnackbarPresenter
 import io.github.yarn44.showcase.core.uikit.snackbar.SnackbarUiState
+import io.github.yarn44.showcase.feature.home.R
 import javax.inject.Inject
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
@@ -58,12 +59,16 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun showWelcomeSnackbar(displayName: String, isGuest: Boolean) {
-        val message = if (isGuest) "Guest mode" else "Welcome, $displayName!"
+        val description = if (isGuest) {
+            AdaptiveString(R.string.guest_mode)
+        } else {
+            AdaptiveString(R.string.welcome_message, displayName)
+        }
         viewModelScope.launch {
             // Wait for the screen transition animation to finish before showing.
             delay(WELCOME_SNACKBAR_DELAY_MILLIS)
             snackbarPresenter.show(
-                SnackbarUiState(description = AdaptiveString(message)),
+                SnackbarUiState(description = description),
             )
         }
     }
