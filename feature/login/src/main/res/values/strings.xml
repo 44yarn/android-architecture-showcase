@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="login_failed">Login Failed</string>
+    <string name="login_invalid_credentials">Invalid email or password. Please try again.</string>
     <string name="guest_login">Guest Login</string>
     <string name="cancel">Cancel</string>
 </resources>

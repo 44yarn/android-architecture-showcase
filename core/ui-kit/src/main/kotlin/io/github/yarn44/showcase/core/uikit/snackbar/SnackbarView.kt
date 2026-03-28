@@ -25,9 +25,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.delay
-
-private const val AUTO_DISMISS_MILLIS = 3000L
 
 /**
  * Animated snackbar that appears at the bottom of the screen.
@@ -46,7 +45,7 @@ fun SnackbarView(
 
     LaunchedEffect(state) {
         if (state != null) {
-            delay(AUTO_DISMISS_MILLIS)
+            delay(3.seconds)
             presenter.hide()
         }
     }

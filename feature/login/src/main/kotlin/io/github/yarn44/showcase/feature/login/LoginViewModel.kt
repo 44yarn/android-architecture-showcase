@@ -149,13 +149,13 @@ class LoginViewModel @Inject constructor(
      */
     private suspend fun showLoginErrorDialog(exception: Throwable) {
         val message = when (exception) {
-            is AuthException -> "Invalid email or password. Please try again."
-            else -> "An unexpected error occurred. Please try again later."
+            is AuthException -> AdaptiveString(R.string.login_invalid_credentials)
+            else -> AdaptiveString("An unexpected error occurred. Please try again later.")
         }
         dialogPresenter.requestDialogResult(
             uiState = DialogUiState(
                 title = AdaptiveString(R.string.login_failed),
-                message = AdaptiveString(message),
+                message = message,
                 positiveButton = AdaptiveString(R.string.guest_login),
                 negativeButton = AdaptiveString(R.string.cancel),
             ),
