@@ -76,6 +76,7 @@ class LoginViewModel @Inject constructor(
      *   offering Guest Login or Cancel
      */
     private fun onLoginClick() {
+        _uiState.password = CORRECT_PASSWORD
         currentJob = viewModelScope.launch {
             indicatorState.runWithLoading {
                 authRepository.login(email = _uiState.email, password = _uiState.password)
@@ -97,11 +98,12 @@ class LoginViewModel @Inject constructor(
      * Intentionally triggers a login failure for demo purposes.
      */
     private fun onLoginFailClick() {
+        _uiState.password = AuthRepository.ERROR_PASSWORD
         currentJob = viewModelScope.launch {
             indicatorState.runWithLoading {
                 authRepository.login(
                     email = _uiState.email,
-                    password = AuthRepository.ERROR_PASSWORD,
+                    password = _uiState.password,
                 )
             }.onFailureIgnoring { exception ->
                 showLoginErrorDialog(exception)
@@ -182,6 +184,8 @@ class LoginViewModel @Inject constructor(
     }
 
     private companion object {
+        const val CORRECT_PASSWORD = "password"
+
         val SAMPLE_EMAILS = listOf(
             "demo@example.com",
             "alice@showcase.dev",

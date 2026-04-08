@@ -28,7 +28,7 @@ class AuthRepository @Inject constructor() {
 
     companion object {
         /** Public for demo UI (LoginViewModel uses this to trigger an intentional login failure). */
-        const val ERROR_PASSWORD = "error_password"
+        const val ERROR_PASSWORD = "error"
 
         private const val SIMULATED_DELAY_MILLIS = 1500L
     }
