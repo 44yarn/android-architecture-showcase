@@ -49,7 +49,7 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             _uiState.isSaveEmailEnabled = preferenceStorage.getOrDefault(
                 PreferenceKey.Login.SaveEmailEnabled,
-                default = false,
+                default = true,
             )
             _uiState.savedEmail = preferenceStorage.getOrDefault(
                 PreferenceKey.Login.SavedEmail,

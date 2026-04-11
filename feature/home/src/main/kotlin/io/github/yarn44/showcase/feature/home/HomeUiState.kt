@@ -33,6 +33,6 @@ class MutableHomeUiState : HomeUiState {
         } else {
             AdaptiveString(R.string.welcome_message, displayName)
         }
-    override var isSaveEmailEnabled: Boolean by mutableStateOf(false)
+    override var isSaveEmailEnabled: Boolean by mutableStateOf(true)
     override var savedEmail: String by mutableStateOf("")
 }
