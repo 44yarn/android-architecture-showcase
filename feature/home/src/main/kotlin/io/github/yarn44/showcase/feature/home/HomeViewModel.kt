@@ -27,7 +27,7 @@ class HomeViewModel @Inject constructor(
     private val _uiState = MutableHomeUiState()
     val uiState: HomeUiState = _uiState
 
-    private val _effect = Channel<HomeEffect>(Channel.BUFFERED)
+    private val _effect = Channel<HomeEffect>()
     val effect = _effect.receiveAsFlow()
 
     val actions = HomeActions(

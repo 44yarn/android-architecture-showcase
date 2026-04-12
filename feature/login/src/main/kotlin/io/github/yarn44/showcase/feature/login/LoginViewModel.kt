@@ -33,7 +33,7 @@ class LoginViewModel @Inject constructor(
     private val _uiState = MutableLoginUiState(indicatorState)
     val uiState: LoginUiState = _uiState
 
-    private val _effect = Channel<LoginEffect>(Channel.BUFFERED)
+    private val _effect = Channel<LoginEffect>()
     val effect = _effect.receiveAsFlow()
 
     val actions = LoginActions(
