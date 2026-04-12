@@ -21,13 +21,13 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import io.github.yarn44.showcase.core.foundation.lifecycle.CollectAsEffect
 import io.github.yarn44.showcase.core.uikit.dialog.ShowcaseAlertDialog
 import io.github.yarn44.showcase.core.uikit.indicator.IndicatorState
 
@@ -39,16 +39,14 @@ fun LoginScreen(
 ) {
     val context = LocalContext.current
 
-    // Effect pattern: collect one-shot events (navigation, activity launch)
-    LaunchedEffect(Unit) {
-        viewModel.effect.collect { effect ->
-            when (effect) {
-                is LoginEffect.NavigateToHome -> {
-                    onNavigateToHome(effect.displayName, effect.isGuest)
-                }
-                is LoginEffect.LaunchActivity -> {
-                    viewModel.activityLauncher.launch(context, effect.target)
-                }
+    // Effect pattern: lifecycle-aware collect for one-shot events
+    viewModel.effect.CollectAsEffect { effect ->
+        when (effect) {
+            is LoginEffect.NavigateToHome -> {
+                onNavigateToHome(effect.displayName, effect.isGuest)
+            }
+            is LoginEffect.LaunchActivity -> {
+                viewModel.activityLauncher.launch(context, effect.target)
             }
         }
     }
