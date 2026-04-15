@@ -10,6 +10,5 @@ local.properties
 .externalNativeBuild
 .cxx
 .tasks/
-CLAUDE.md
 CLAUDE.local.md
 .claude/
