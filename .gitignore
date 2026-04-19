@@ -14,3 +14,4 @@ local.properties
 # Claude Code 個人設定（非公開）
 .claude/
 CLAUDE.local.md
+.mcp.json
