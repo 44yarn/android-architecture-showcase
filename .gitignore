@@ -10,5 +10,7 @@ local.properties
 .externalNativeBuild
 .cxx
 .tasks/
-CLAUDE.local.md
+
+# Claude Code 個人設定（非公開）
 .claude/
+CLAUDE.local.md
