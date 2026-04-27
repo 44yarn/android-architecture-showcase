@@ -1,9 +1,9 @@
 plugins {
-    id("showcase.ModulePlugin")
-    id("showcase.ComposePlugin")
-    id("showcase.NavigationPlugin")
-    id("showcase.LoggingPlugin")
-    id("showcase.UnitTestPlugin")
+    id("showcase.convention.module")
+    id("showcase.primitive.compose")
+    id("showcase.primitive.navigation")
+    id("showcase.primitive.logging")
+    id("showcase.primitive.unit-test")
 }
 
 android {

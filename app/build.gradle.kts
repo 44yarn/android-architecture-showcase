@@ -1,10 +1,10 @@
 plugins {
-    id("showcase.AppPlugin")
-    id("showcase.ComposePlugin")
-    id("showcase.NavigationPlugin")
-    id("showcase.HiltPlugin")
-    id("showcase.LoggingPlugin")
-    id("showcase.UnitTestPlugin")
+    id("showcase.convention.app")
+    id("showcase.primitive.compose")
+    id("showcase.primitive.navigation")
+    id("showcase.primitive.hilt")
+    id("showcase.primitive.logging")
+    id("showcase.primitive.unit-test")
 }
 
 android {

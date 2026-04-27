@@ -1,4 +1,4 @@
-package io.github.yarn44.showcase
+package showcase.config
 
 import org.gradle.api.JavaVersion
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
