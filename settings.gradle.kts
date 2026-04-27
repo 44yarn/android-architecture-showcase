@@ -28,7 +28,7 @@ rootProject.name = "android-architecture-showcase"
 include(
     ":app",
     ":core:foundation",
-    ":core:ui-kit",
+    ":core:ui",
     ":core:data",
     ":feature:home",
     ":feature:info",

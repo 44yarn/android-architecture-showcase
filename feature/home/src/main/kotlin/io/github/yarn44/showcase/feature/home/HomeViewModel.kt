@@ -7,9 +7,9 @@ import androidx.navigation.toRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.yarn44.showcase.core.data.preferences.PreferenceKey
 import io.github.yarn44.showcase.core.data.preferences.PreferenceStorage
-import io.github.yarn44.showcase.core.uikit.model.AdaptiveString
-import io.github.yarn44.showcase.core.uikit.snackbar.SnackbarPresenter
-import io.github.yarn44.showcase.core.uikit.snackbar.SnackbarUiState
+import io.github.yarn44.showcase.core.foundation.adaptive.AdaptiveString
+import io.github.yarn44.showcase.core.ui.snackbar.SnackbarPresenter
+import io.github.yarn44.showcase.core.ui.snackbar.SnackbarUiState
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.channels.Channel

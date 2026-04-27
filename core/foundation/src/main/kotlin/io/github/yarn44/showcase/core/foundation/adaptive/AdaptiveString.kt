@@ -1,4 +1,4 @@
-package io.github.yarn44.showcase.core.uikit.model
+package io.github.yarn44.showcase.core.foundation.adaptive
 
 import android.content.Context
 import androidx.annotation.StringRes

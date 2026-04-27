@@ -1,6 +1,6 @@
-package io.github.yarn44.showcase.core.uikit.dialog
+package io.github.yarn44.showcase.core.ui.dialog
 
-import io.github.yarn44.showcase.core.uikit.model.AdaptiveString
+import io.github.yarn44.showcase.core.foundation.adaptive.AdaptiveString
 
 /**
  * Pure UI state for an alert dialog. Contains only display data.

@@ -28,8 +28,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import io.github.yarn44.showcase.core.foundation.lifecycle.CollectAsEffect
-import io.github.yarn44.showcase.core.uikit.dialog.ShowcaseAlertDialog
-import io.github.yarn44.showcase.core.uikit.indicator.IndicatorState
+import io.github.yarn44.showcase.core.ui.dialog.ShowcaseAlertDialog
+import io.github.yarn44.showcase.core.ui.indicator.IndicatorState
 
 @Composable
 fun LoginScreen(

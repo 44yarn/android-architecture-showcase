@@ -10,7 +10,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import io.github.yarn44.showcase.core.uikit.indicator.IndicatorState
+import io.github.yarn44.showcase.core.ui.indicator.IndicatorState
 
 /**
  * Read-only UI state for the login screen.

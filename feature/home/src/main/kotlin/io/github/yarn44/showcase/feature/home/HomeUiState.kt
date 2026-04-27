@@ -4,7 +4,7 @@ import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import io.github.yarn44.showcase.core.uikit.model.AdaptiveString
+import io.github.yarn44.showcase.core.foundation.adaptive.AdaptiveString
 
 /**
  * Read-only UI state for the home screen.

@@ -9,11 +9,11 @@ import io.github.yarn44.showcase.core.data.preferences.PreferenceKey
 import io.github.yarn44.showcase.core.data.preferences.PreferenceStorage
 import io.github.yarn44.showcase.core.foundation.activity.ActivityLauncher
 import io.github.yarn44.showcase.core.foundation.activity.ActivityTarget
+import io.github.yarn44.showcase.core.foundation.adaptive.AdaptiveString
 import io.github.yarn44.showcase.core.foundation.resulthandling.onFailureIgnoring
-import io.github.yarn44.showcase.core.uikit.dialog.DialogPresenter
-import io.github.yarn44.showcase.core.uikit.dialog.DialogUiState
-import io.github.yarn44.showcase.core.uikit.indicator.IndicatorState
-import io.github.yarn44.showcase.core.uikit.model.AdaptiveString
+import io.github.yarn44.showcase.core.ui.dialog.DialogPresenter
+import io.github.yarn44.showcase.core.ui.dialog.DialogUiState
+import io.github.yarn44.showcase.core.ui.indicator.IndicatorState
 import io.github.yarn44.showcase.feature.login.R
 import javax.inject.Inject
 import kotlinx.coroutines.Job

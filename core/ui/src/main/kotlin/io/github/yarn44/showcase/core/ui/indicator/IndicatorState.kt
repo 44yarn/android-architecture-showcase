@@ -1,4 +1,4 @@
-package io.github.yarn44.showcase.core.uikit.indicator
+package io.github.yarn44.showcase.core.ui.indicator
 
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue

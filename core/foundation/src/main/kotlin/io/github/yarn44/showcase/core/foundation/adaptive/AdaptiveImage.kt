@@ -1,4 +1,4 @@
-package io.github.yarn44.showcase.core.uikit.model
+package io.github.yarn44.showcase.core.foundation.adaptive
 
 import androidx.annotation.DrawableRes
 import androidx.compose.ui.layout.ContentScale

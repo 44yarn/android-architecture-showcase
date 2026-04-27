@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "io.github.yarn44.showcase.core.uikit"
+    namespace = "io.github.yarn44.showcase.core.ui"
 }
 
 dependencies {

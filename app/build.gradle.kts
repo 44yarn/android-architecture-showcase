@@ -17,7 +17,7 @@ android {
 
 dependencies {
     implementation(project(":core:foundation"))
-    implementation(project(":core:ui-kit"))
+    implementation(project(":core:ui"))
     implementation(project(":core:data"))
     implementation(project(":feature:home"))
     implementation(project(":feature:info"))

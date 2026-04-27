@@ -1,4 +1,4 @@
-package io.github.yarn44.showcase.core.uikit.snackbar
+package io.github.yarn44.showcase.core.ui.snackbar
 
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue

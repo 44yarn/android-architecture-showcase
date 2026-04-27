@@ -1,4 +1,4 @@
-package io.github.yarn44.showcase.core.uikit.dialog
+package io.github.yarn44.showcase.core.ui.dialog
 
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue

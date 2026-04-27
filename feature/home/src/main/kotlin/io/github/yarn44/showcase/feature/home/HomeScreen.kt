@@ -19,7 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import io.github.yarn44.showcase.core.foundation.lifecycle.CollectAsEffect
-import io.github.yarn44.showcase.core.uikit.snackbar.SnackbarView
+import io.github.yarn44.showcase.core.ui.snackbar.SnackbarView
 
 @Composable
 fun HomeScreen(
