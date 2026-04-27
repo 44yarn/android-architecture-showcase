@@ -28,7 +28,15 @@ class IndicatorState @Inject constructor() {
 
     /**
      * Starts loading, executes [block], then stops loading.
-     * The finally block ensures loading stops even when the coroutine is cancelled.
+     *
+     * Design intent for the dual reset (do NOT collapse into one):
+     * - `block().also { isLoading = false }` is the **primary control for the normal
+     *   flow**. When [block] returns a Result, this hides the indicator before the
+     *   caller's chained handlers (e.g. `.onFailure { showErrorDialog() }`) run.
+     *   The contract is: the indicator must be hidden before any post-block UI
+     *   action (such as showing an error dialog) starts.
+     * - `finally { isLoading = false }` is the **safety net for cancellation**
+     *   (CancellationException thrown out of [block]). Not for the normal flow.
      *
      * Note: Do NOT chain onSuccess/onFailure inside [block] — callbacks would
      * execute before loading stops. Chain them on the returned Result instead.
