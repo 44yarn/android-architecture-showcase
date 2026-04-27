@@ -21,16 +21,17 @@ Requires **JDK 21**.
 
 ```
 app                  Application module, NavGraph, ActivityLauncherImpl
-core/foundation      Navigation helpers, Result extensions, ActivityLauncher interface
-core/ui-kit          UI components: DialogPresenter, SnackbarPresenter, IndicatorState, AdaptiveString/Image
+core/foundation      Navigation helpers, Result extensions, ActivityLauncher interface, AdaptiveString/Image
+core/ui              DialogPresenter, SnackbarPresenter, IndicatorState
 core/data            AuthRepository, PreferenceStorage (DataStore)
 feature/login        Login screen
 feature/home         Home screen
 feature/info         Info screen (separate Activity)
-build-logic          Convention Plugins
+gradle-conventions   Convention Plugins (composite build, primitive + convention layers)
 ```
 
-Dependencies flow: `app → feature/* → core/*`. Features depend on `core:foundation` + `core:ui-kit`, and optionally `core:data`.
+Dependencies flow: `app → feature/* → core/*`. Features depend on `core:foundation` + `core:ui`, and optionally `core:data`.
+`core:ui` depends on `core:foundation`. `core:foundation` is intentionally Compose-aware (hosts `AdaptiveString`/`AdaptiveImage` with `@Composable val value` accessors).
 
 ### Key Patterns
 

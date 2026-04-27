@@ -41,18 +41,18 @@ Login ─── Login 成功 ──────────→ Home（"Welcome, 
 - **mutableStateOf パターン** — `@Stable interface UiState` + `MutableUiState` による Compose snapshot 統合
 - **Actions クラス** — コールバックを data class に集約し、Screen に一括で渡す
 - **ActivityLauncher** — `core:foundation` に interface、`app` に実装。feature 間の依存逆転（DIP）
-- **Convention Plugin** — build-logic でビルド設定を共通化。各モジュールはプラグインを宣言するだけ
+- **Convention Plugin** — `gradle-conventions/` でビルド設定を共通化（composite build、primitive + convention の 2 層）。各モジュールはプラグインを宣言するだけ
 - **PreferenceKey / PreferenceStorage** — Jetpack DataStore の型安全ラッパー。キー定義が型情報を保持
 - **logOnFailure / onFailureIgnoring** — `CancellationException` を安全に除外する Result 拡張
 
 ## モジュール構成
 
 ```
-build-logic              Convention Plugins（ビルド設定の共通化）
+gradle-conventions       Convention Plugins（composite build、primitive + convention の 2 層）
 app                      アプリ本体、NavGraph、ActivityLauncher 実装
 ├── core
-│   ├── foundation       Navigation ユーティリティ、Result 拡張、ActivityLauncher interface
-│   ├── ui-kit           DialogPresenter、SnackbarPresenter、IndicatorState、AdaptiveString
+│   ├── foundation       Navigation ユーティリティ、Result 拡張、ActivityLauncher interface、AdaptiveString/Image
+│   ├── ui               DialogPresenter、SnackbarPresenter、IndicatorState
 │   └── data             AuthRepository、PreferenceStorage（DataStore）
 └── feature
     ├── login            ログイン画面
@@ -61,20 +61,26 @@ app                      アプリ本体、NavGraph、ActivityLauncher 実装
 ```
 
 依存方向: `app → feature → core`（一方向）。feature 同士は直接依存しない。
+`core:ui` は `core:foundation` に依存する。`core:foundation` は意図的に Compose-aware（`@Composable val value` アクセサを持つ `AdaptiveString`/`AdaptiveImage` を抱える）。
 
-## Convention Plugins（build-logic）
+## Convention Plugins（`gradle-conventions/`）
+
+ビルドは **primitive**（個別機能）と **convention**（app / library モジュール用の合成）の 2 層に分かれる:
 
 | プラグイン | 役割 |
 |-----------|------|
-| AppPlugin | Application モジュール設定（SDK バージョン、Application ID） |
-| ModulePlugin | Library モジュール共通設定 |
-| ComposePlugin | Jetpack Compose + Material3 |
-| NavigationPlugin | Navigation + kotlinx-serialization + Hilt NavCompose |
-| HiltPlugin | Hilt DI + KSP |
-| DataStorePlugin | Preferences DataStore |
-| LoggingPlugin | Timber |
-| KtlintPlugin | ktlint によるコードフォーマット |
-| UnitTestPlugin | JUnit + MockK + Truth + Turbine |
+| convention.app | Application モジュール設定（SDK バージョン、Application ID、ktlint） |
+| convention.module | Library モジュール設定（Android Library、ktlint、kotlinx-coroutines-core） |
+| primitive.compose | Jetpack Compose + Material3 |
+| primitive.navigation | Navigation Compose + Hilt NavCompose |
+| primitive.hilt | Hilt DI + KSP |
+| primitive.serialization | kotlinx-serialization-json |
+| primitive.datastore | Preferences DataStore |
+| primitive.logging | Timber |
+| primitive.ktlint | ktlint によるコードフォーマット |
+| primitive.unit-test | JUnit + MockK + Truth + Turbine |
+
+各モジュールの `build.gradle.kts` は必要なプラグインだけを宣言する。中央集権的な god-object プラグインは置かない。
 
 ## 設計の工夫ポイント
 
@@ -83,6 +89,8 @@ app                      アプリ本体、NavGraph、ActivityLauncher 実装
 リソース ID と文字列リテラル（または URL）を統一的に扱う型。
 ViewModel が UI テキストや画像を提供する際に `Context` を引き回す必要がなくなる。
 旧来のアプローチで使用されていた `context.getString()` の受け渡し問題を解消する。
+
+`core:foundation/adaptive/` に配置。`core:ui` の Composable と feature の state holder の双方が、依存方向を逆転させずに参照できる。
 
 ### DialogPresenter — suspendCancellableCoroutine
 

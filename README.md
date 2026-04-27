@@ -41,18 +41,18 @@ Login ─── Success ────────────→ Home ("Welcome, 
 - **mutableStateOf pattern** — `@Stable interface UiState` + `MutableUiState` for Compose snapshot integration
 - **Actions class** — Callbacks aggregated into a data class, passed to Screen as a single unit
 - **ActivityLauncher** — Interface in `core:foundation`, implementation in `app`. Dependency Inversion between features
-- **Convention Plugin** — Shared build configuration via build-logic. Each module simply declares the plugins it needs
+- **Convention Plugin** — Shared build configuration via `gradle-conventions/` (composite build, primitive + convention layers). Each module simply declares the plugins it needs
 - **PreferenceKey / PreferenceStorage** — Type-safe wrapper for Jetpack DataStore. Key definitions carry type information
 - **logOnFailure / onFailureIgnoring** — Result extensions that safely exclude `CancellationException`
 
 ## Module Structure
 
 ```
-build-logic              Convention Plugins (shared build configuration)
+gradle-conventions       Convention Plugins (composite build, primitive + convention layers)
 app                      App entry point, NavGraph, ActivityLauncher implementation
 ├── core
-│   ├── foundation       Navigation utilities, Result extensions, ActivityLauncher interface
-│   ├── ui-kit           DialogPresenter, SnackbarPresenter, IndicatorState, AdaptiveString
+│   ├── foundation       Navigation utilities, Result extensions, ActivityLauncher interface, AdaptiveString/Image
+│   ├── ui               DialogPresenter, SnackbarPresenter, IndicatorState
 │   └── data             AuthRepository, PreferenceStorage (DataStore)
 └── feature
     ├── login            Login screen
@@ -61,20 +61,26 @@ app                      App entry point, NavGraph, ActivityLauncher implementat
 ```
 
 Dependency direction: `app → feature → core` (unidirectional). Feature modules never depend on each other.
+`core:ui` depends on `core:foundation`. `core:foundation` is intentionally Compose-aware (hosts `AdaptiveString`/`AdaptiveImage` with `@Composable val value` accessors).
 
-## Convention Plugins (build-logic)
+## Convention Plugins (`gradle-conventions/`)
+
+The build is layered into **primitive** plugins (opt-in capabilities) and **convention** plugins (composite for app/library modules):
 
 | Plugin | Role |
 |--------|------|
-| AppPlugin | Application module setup (SDK versions, Application ID) |
-| ModulePlugin | Common library module configuration |
-| ComposePlugin | Jetpack Compose + Material3 |
-| NavigationPlugin | Navigation + kotlinx-serialization + Hilt NavCompose |
-| HiltPlugin | Hilt DI + KSP |
-| DataStorePlugin | Preferences DataStore |
-| LoggingPlugin | Timber |
-| KtlintPlugin | Code formatting via ktlint |
-| UnitTestPlugin | JUnit + MockK + Truth + Turbine |
+| convention.app | Application module setup (SDK versions, Application ID, ktlint) |
+| convention.module | Library module setup (Android Library, ktlint, kotlinx-coroutines-core) |
+| primitive.compose | Jetpack Compose + Material3 |
+| primitive.navigation | Navigation Compose + Hilt NavCompose |
+| primitive.hilt | Hilt DI + KSP |
+| primitive.serialization | kotlinx-serialization-json |
+| primitive.datastore | Preferences DataStore |
+| primitive.logging | Timber |
+| primitive.ktlint | Code formatting via ktlint |
+| primitive.unit-test | JUnit + MockK + Truth + Turbine |
+
+Each module's `build.gradle.kts` declares only the plugins it needs. No central god-object plugin.
 
 ## Design Highlights
 
@@ -83,6 +89,8 @@ Dependency direction: `app → feature → core` (unidirectional). Feature modul
 Types that unify resource IDs and string literals (or URLs) into a single abstraction.
 ViewModels can provide UI text and images without passing `Context` around —
 eliminating the `context.getString()` plumbing common in older approaches.
+
+Lives in `core:foundation/adaptive/` so both `core:ui` Composables and feature state holders can reference it without crossing dependency directions.
 
 ### DialogPresenter — suspendCancellableCoroutine
 
